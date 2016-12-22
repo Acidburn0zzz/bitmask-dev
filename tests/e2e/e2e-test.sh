@@ -8,9 +8,11 @@
 #
 # as an example:
 #   export FROM_EXTERNAL_OPTS='-f user@example.org --tlsc --au user@example.or -ap MYPASSWORD -s smtp.example.org'
+#
+# TODO:
+#   - Timeout waiting for mail
 
 
-set -x
 set -e
 
 PROVIDER='cdev.bitmask.net'
@@ -56,9 +58,10 @@ done
 # Send testmail
 $SWAKS $FROM_EXTERNAL_OPTS
 
-# XXX wait until we the get mail we just sent.
-
-while [[ ! $(./tests/e2e/getmail --mailbox INBOX --subject "$MAIL_UUID" $user $imap_pw) ]]
+# wait until we the get mail we just sent.
+while ! ./tests/e2e/getmail --mailbox INBOX --subject "$MAIL_UUID" "$user" "$imap_pw" > /dev/null
 do
   sleep 10
 done
+
+echo "Succeeded - mail arrived"
