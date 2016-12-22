@@ -55,6 +55,5 @@ done
 #echo "IMAP/SMTP PASSWD: $imap_pw"
 
 
-$SWAKS $FROM_EXTERNAL_OPTS
-
-
+# XXX get mail we just sent.
+./getmail --mailbox INBOX --subject "my_unique_subject" $user $imap_pw
