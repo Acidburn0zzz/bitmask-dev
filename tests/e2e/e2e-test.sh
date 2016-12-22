@@ -40,3 +40,7 @@ while [[ $imap_pw == *"None"* ]]; do
 done
 
 echo "IMAP/SMTP PASSWD: $imap_pw"
+
+
+# XXX get mail we just sent.
+./getmail --mailbox INBOX --subject "my_unique_subject" $user $imap_pw
